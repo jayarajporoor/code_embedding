@@ -30,7 +30,7 @@ During similarity checking, the TF vectors are generated and scaled using the pr
 * A recent version of Python 3.
 * A recent version of JDK (javap is used to generate JVM disassembly) - must be in the path.
 * scikit-learn: pip install scikit-learn
-*
+
 #### IDF generation:
 
 ```console
