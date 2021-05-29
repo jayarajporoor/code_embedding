@@ -90,8 +90,8 @@ def parse_jsonp(src):
 
     return res
 
-def build_dataset(inpath):
-    dataset = {}
+def build_tf_df(inpath):
+    tf_dataset = {}
     df = defaultdict(float)
     n_methods = 0
     for root, dirs, files in os.walk(inpath):
@@ -111,10 +111,10 @@ def build_dataset(inpath):
                 res = parse_jsonp(lines)
                 #print(json.dumps(res, indent=4))
                 res, n_mod_methods = dict_featurize(res, df)
-                dataset[file_path] = res
+                tf_dataset[file_path] = res
                 n_methods += n_mod_methods
                 print("processed", n_mod_methods, "methods")
-    return dataset, df, n_methods
+    return tf_dataset, df, n_methods
 
 def compute_idf(df, n_methods):
     idf  = {}

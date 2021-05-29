@@ -4,7 +4,7 @@ import json
 
 inpath = sys.argv[1]
 outpath = sys.argv[2]
-dataset, df, n_methods = build_dataset(inpath)
+tf_dataset, df, n_methods = build_tf_df(inpath)
 idf = compute_idf(df, n_methods)
 print(json.dumps(idf, indent=4))
 with open(outpath, 'w') as fd:
