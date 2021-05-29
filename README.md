@@ -10,7 +10,7 @@ We take the instruction sequence in each method and generate a set of features.
 
 * Function calls are abstracted using the parameter and return types and attached to invoke instructions.
 * Class name is attached to the 'new' instruction.
-* Parameter and return types from function definition is not currently used.
+* Parameter and return types from function definition are currently not used since they're not part of the instruction stream.
 
 Features:
 
