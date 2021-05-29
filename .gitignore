@@ -5,7 +5,7 @@ __pycache__/
 
 *.class
 *.jar
-
+*.javap
 # C extensions
 *.so
 
