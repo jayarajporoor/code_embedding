@@ -10,22 +10,6 @@ from math import log, sqrt
 from collections import defaultdict
 from sklearn.feature_extraction import DictVectorizer
 
-def normalize_line(line):
-    if line.startswith("invoke"):
-        ins = line.split(" ", 1)[0]
-        type_ = line.split(":")[1]
-        return ins + type_
-    elif line.startswith("new"):
-        fields = line.split(" ", 1)
-        ins = fields[0]
-        if "class " in line:
-            class_ = line.split("class ")[1]
-        else:
-            class_ = fields[1]
-        class_  = class_.strip()
-        return "new(" + class_ + ")"
-    else:
-        return line.split(" ", 1)[0]
 
 def lines_to_feature_dict(lines, df):
     d = defaultdict(float)
@@ -56,39 +40,6 @@ def dict_featurize(mod, df):
         res[method] = lines_to_feature_dict(lines, df)
         n_methods += 1
     return res, n_methods
-
-def parse_jsonp(src):
-    MODULE = 0
-    METHOD_DEFS = 1
-    METHOD_BODY = 2
-    state = MODULE
-    curr_method = ""
-    curr_method_code = []
-    res = {}
-    for line in src:
-        sline = line.strip()
-        if state == MODULE:
-            if line != "" and line[0] == '{':
-                state = METHOD_DEFS
-        elif state == METHOD_DEFS:
-            if sline.endswith(";"):
-                sline = sline[0:-1]
-            curr_method = sline
-            curr_method_code = []
-            state = METHOD_BODY
-        elif state == METHOD_BODY:
-            if sline == "" or sline == "}":
-                state = METHOD_DEFS if sline == "" else MODULE
-                if curr_method != "":
-                    res[curr_method] = curr_method_code
-                curr_method = ""
-                curr_method_code = []
-            else:
-                fields = sline.split(":", 1)
-                if len(fields) == 2 and fields[0].isnumeric():
-                    curr_method_code.append(normalize_line(fields[1].strip()))
-
-    return res
 
 def build_tf_df(inpath):
     tf_dataset = {}
@@ -145,6 +96,57 @@ def dict_cosine(d1, d2):
             res += v1 * v2
     n = n1 * n2
     return res / n if n != 0 else 0
+
+def normalize_line(line):
+    if line.startswith("invoke"):
+        ins = line.split(" ", 1)[0]
+        type_ = line.split(":")[1]
+        return ins + type_
+    elif line.startswith("new"):
+        fields = line.split(" ", 1)
+        ins = fields[0]
+        if "class " in line:
+            class_ = line.split("class ")[1]
+        else:
+            class_ = fields[1]
+        class_  = class_.strip()
+        return "new(" + class_ + ")"
+    else:
+        return line.split(" ", 1)[0]
+
+def parse_jsonp(src):
+    MODULE = 0
+    METHOD_DEFS = 1
+    METHOD_BODY = 2
+    state = MODULE
+    curr_method = ""
+    curr_method_code = []
+    res = {}
+    for line in src:
+        sline = line.strip()
+        if state == MODULE:
+            if line != "" and line[0] == '{':
+                state = METHOD_DEFS
+        elif state == METHOD_DEFS:
+            if sline.endswith(";"):
+                sline = sline[0:-1]
+            curr_method = sline
+            curr_method_code = []
+            state = METHOD_BODY
+        elif state == METHOD_BODY:
+            if sline == "" or sline == "}":
+                state = METHOD_DEFS if sline == "" else MODULE
+                if curr_method != "":
+                    res[curr_method] = curr_method_code
+                curr_method = ""
+                curr_method_code = []
+            else:
+                fields = sline.split(":", 1)
+                if len(fields) == 2 and fields[0].isnumeric():
+                    curr_method_code.append(normalize_line(fields[1].strip()))
+
+    return res
+
 
 if __name__ == "__main__":
     pass
