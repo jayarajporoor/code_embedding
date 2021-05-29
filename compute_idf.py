@@ -9,4 +9,4 @@ idf = compute_idf(df, n_methods)
 print(json.dumps(idf, indent=4))
 with open(outpath, 'w') as fd:
     json.dump(idf, fd, indent=4)
-#print(n_methods)
+print("Total", n_methods, "methods")

@@ -102,7 +102,8 @@ def build_dataset(inpath):
                 process = Popen(["javap", "-v", file_path], stdout=PIPE)
                 (output, err) = process.communicate()
                 exit_code = process.wait()
-                output = output.decode()
+                output = output.decode("latin1")
+                #print(output)
                 lines = output.split("\n")
                 #print(lines)
                 res = parse_jsonp(lines)
@@ -110,7 +111,7 @@ def build_dataset(inpath):
                 res, n_mod_methods = dict_featurize(res, df)
                 dataset[file_path] = res
                 n_methods += n_mod_methods
-                print(n_mod_methods, n_methods)
+                print("processed", n_mod_methods, "methods")
     return dataset, df, n_methods
 
 def compute_idf(df, n_methods):
