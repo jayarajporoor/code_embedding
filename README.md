@@ -47,6 +47,13 @@ python compute_similarity.py <folder containing class files> <IDF path>
 
 The IDF path must point to a previously computed IDF file. All the class files are read and pair-wise similarity of all methods are printed.
 
+To run against the test files:
+```console
+cd test
+javac *.java
+cd ..
+python compute_similarity test test/idf_commons_lang.json
+```
 ### Pre-computed
 
 The file test/idf_commons_lang.json contains IDF computed from all the class files in the Apache Commons Lang library.
