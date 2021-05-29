@@ -23,4 +23,13 @@ class test4{
        }
        return res;
     }
+
+    public String m3(String x, int n){
+      String res= "";
+       for(int i=0;i<n;i++){
+          res += "~";
+       }
+       return res;
+    }
+
 }

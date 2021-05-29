@@ -71,6 +71,8 @@ def parse_jsonp(src):
             if line != "" and line[0] == '{':
                 state = METHOD_DEFS
         elif state == METHOD_DEFS:
+            if sline.endswith(";"):
+                sline = sline[0:-1]
             curr_method = sline
             curr_method_code = []
             state = METHOD_BODY
@@ -141,7 +143,8 @@ def dict_cosine(d1, d2):
         v2 = d2.get(k1, None)
         if v2 is not None:
             res += v1 * v2
-    return res / (n1 * n2)
+    n = n1 * n2
+    return res / n if n != 0 else 0
 
 if __name__ == "__main__":
     pass
