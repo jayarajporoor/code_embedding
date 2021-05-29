@@ -4,7 +4,7 @@
 
 A novel and simple approach for generating source code embeddings for code similarity tasks.
 
-The approach works by compiling the high level source code to a typed intermediate language. Here we demonstrate for Java using the JVM instruction set. For other languages such as C/C++, LLVM intermediate language could be used.
+This *compiler-in-the-loop* approach works by compiling the high level source code to a typed intermediate language. Here we demonstrate for Java using the JVM instruction set. For other languages such as C/C++, LLVM intermediate language could be used.
 
 We take the instruction sequence in each method and generate a set of features.
 
