@@ -30,7 +30,7 @@ During similarity checking, the TF vectors are generated and scaled using the pr
 * A recent version of Python 3.
 * A recent version of JDK (javap is used to generate JVM disassembly) - must be in the path.
 * scikit-learn: pip install scikit-learn
-* 
+*
 #### IDF generation:
 
 ```console
@@ -67,3 +67,10 @@ BibTex:
        journal = {GitHub repository},
        howpublished = {\url{https://github.com/jayarajporoor/code_embedding}}
     }
+
+### Related work
+
+A few deep learning models have been proposed in recent years to generate source code embeddings:
+
+* Code2Vec - https://github.com/tech-srl/code2vec
+* CodeBERT - https://github.com/microsoft/CodeBERT
