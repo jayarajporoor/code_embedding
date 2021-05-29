@@ -144,19 +144,4 @@ def dict_cosine(d1, d2):
     return res / (n1 * n2)
 
 if __name__ == "__main__":
-
-    inpath = sys.argv[1]
-    #outpath = sys.argv[2]
-    dataset, df, n_methods = build_dataset(inpath)
-    dataset = flatten(dataset)
-    print(json.dumps(dataset, indent=4))
-    print(json.dumps(df, indent=4))
-    #with open(inpath) as fd:
-    #    res = parse_jsonp(fd)
-    #res = dict_featurize(res)
-    #print(json.dumps(res, indent=4))
-    #feature_vecs = [feature_vec for method, feature_vec in res.items()]
-    #print(feature_vecs)
-    #vectorizer = DictVectorizer(sparse=False)
-    #X = vectorizer.fit_transform(feature_vecs)
-    #print(X)
+    pass
