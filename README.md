@@ -10,6 +10,7 @@ We take the instruction sequence in each method and generate a set of features.
 
 * Function calls are abstracted using the parameter and return types and attached to invoke instructions.
 * Class name is attached to the 'new' instruction.
+* Parameter and return types from function definition is not currently used.
 
 Features:
 
@@ -24,6 +25,12 @@ During similarity checking, the TF vectors are generated and scaled using the pr
 
 ### Running
 
+#### Pre-requisites
+
+* A recent version of Python 3.
+* A recent version of JDK (javap is used to generate JVM disassembly) - must be in the path.
+* scikit-learn: pip install scikit-learn
+* 
 #### IDF generation:
 
 ```console

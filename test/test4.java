@@ -15,4 +15,12 @@ class test4{
 	    test2 t = new test2();
 	    return t.n(x);
     }
+
+    public String m2(String x, int n){
+      String res= "";
+       for(int i=0;i<n;i++){
+          res += x;
+       }
+       return res;
+    }
 }
