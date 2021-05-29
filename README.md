@@ -42,15 +42,15 @@ The file test/idf_commons_lang.json contains IDF computed from all the class fil
 
 If you are using or extending this work as part of your research, please cite as:
 
-Poroor, Jayaraj, Java code embeddings from compiled class files for code similarity tasks, (2021), GitHub repository, https://github.com/jayarajporoor/code_embedding
+Poroor, Jayaraj, "Java code embeddings from compiled class files for code similarity tasks", (2021), GitHub repository, https://github.com/jayarajporoor/code_embedding
 
 BibTex:
 
-   @misc{Poroor2021,
-      author = {Poroor, Jayaraj},
-      title = {Java code embeddings from compiled class files for code similarity tasks},
-      year = {2021},
-      publisher = {GitHub},
-      journal = {GitHub repository},
-      howpublished = {\url{https://github.com/jayarajporoor/code_embedding}}
-   }
+    @misc{Poroor2021,
+       author = {Poroor, Jayaraj},
+       title = {Java code embeddings from compiled class files for code similarity tasks},
+       year = {2021},
+       publisher = {GitHub},
+       journal = {GitHub repository},
+       howpublished = {\url{https://github.com/jayarajporoor/code_embedding}}
+    }
