@@ -6,15 +6,21 @@ A novel and simple approach for generating source code embeddings for code simil
 
 The approach works by compiling the high level source code to a typed intermediate language. Here we demonstrate for Java using the JVM instruction set. For other languages such as C/C++, LLVM intermediate language could be used.
 
-We take the instruction sequence in each method (function calls are abstracted using the parameter and return types) and generate the following features:
+We take the instruction sequence in each method and generate a set of features.
+
+* Function calls are abstracted using the parameter and return types and attached to invoke instructions.
+* Class name is attached to the 'new' instruction.
+
+Features:
 
 * Each instruction is a unigram feature.
 * We may take every k-subsequence in the instruction sequence to generate a k-gram feature.
-  * Currently we generate for binary subsequence and generate 2-gram features.
+  * Currently we generate for binary subsequences and generate 2-gram features.
+
 
 During the learning phase, the IDF values for the features are generated and stored in a JSON file.
 
-During similarity checking, the TF vectors are generated and scaled using the IDF values. Cosine similarity of vectors are used.
+During similarity checking, the TF vectors are generated and scaled using the previously learnt IDF values. Cosine similarity is used as the similarity measure.
 
 ### Running
 
