@@ -16,9 +16,11 @@ for path, method_features in tf_dataset.items():
 
 for path1, method_features1 in tf_dataset.items():
     for path2, method_features2 in tf_dataset.items():
-        if path1 == path2:
-            continue
         for method1, feature_dict1 in method_features1.items():
+            print()
+            print(path1, "@", method1, "vs: ")
             for method2, feature_dict2 in method_features2.items():
+                if path1 == path2 and method1 == method2:
+                    continue
                 sim = dict_cosine(feature_dict1, feature_dict2)
-                print(path1, method1, "vs", path2, method2, ":", sim)
+                print("    ", path2, method2, ":", sim)
