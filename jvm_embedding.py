@@ -27,10 +27,11 @@ def lines_to_feature_dict(lines, df):
             d[f] += 1
             features.add(f)
             n_features += 1
-    for f in features:
-        df[f] += 1
-    for k in d.keys():
-        d[k] = d[k] / n_features
+    if df is not None:
+        for f in features:
+            df[f] += 1
+        for k in d.keys():
+            d[k] = d[k] / n_features
     return d
 
 def dict_featurize(mod, df):
@@ -66,6 +67,33 @@ def build_tf_df(inpath):
                 n_methods += n_mod_methods
                 print("processed", n_mod_methods, "methods")
     return tf_dataset, df, n_methods
+
+def build_subseq_ngrams(inpath, outpath):
+    n_methods = 0
+    with open(outpath, 'w') as outfd:
+        for root, dirs, files in os.walk(inpath):
+            path = root.split(os.sep)
+            print((len(path) - 1) * '...', os.path.basename(root))
+            for file in files:
+                if file.endswith(".class"):
+                    file_path = root + os.sep + file
+                    print(len(path) * '...', file)
+                    process = Popen(["javap", "-v", file_path], stdout=PIPE)
+                    (output, err) = process.communicate()
+                    exit_code = process.wait()
+                    output = output.decode("latin1")
+                    #print(output)
+                    lines = output.split("\n")
+                    #print(lines)
+                    res = parse_jsonp(lines)
+                    #print(json.dumps(res, indent=4))
+                    res, n_mod_methods = dict_featurize(res, None)
+                    for method, method_features in res.items():
+                        features_line = " ".join(list(method_features.keys()))
+                        outfd.write(features_line + "\n")
+                    n_methods += n_mod_methods
+                    print("processed", n_mod_methods, "methods")
+    return n_methods
 
 def compute_idf(df, n_methods):
     idf  = {}
