@@ -68,7 +68,7 @@ def build_tf_df(inpath):
                 print("processed", n_mod_methods, "methods")
     return tf_dataset, df, n_methods
 
-def build_subseq_ngrams(inpath, outpath):
+def build_nsubseqs(inpath, outpath):
     n_methods = 0
     with open(outpath, 'w') as outfd:
         for root, dirs, files in os.walk(inpath):

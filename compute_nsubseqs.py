@@ -4,5 +4,5 @@ import json
 
 inpath = sys.argv[1]
 outpath = sys.argv[2]
-n_methods = build_subseq_ngrams(inpath, outpath)
+n_methods = build_nsubseqs(inpath, outpath)
 print("Total", n_methods, "methods")
