@@ -31,13 +31,29 @@ In this approach, during the learning phase, the IDF values for the features are
 During similarity checking, the TF vectors are generated and scaled using the previously learnt IDF values. Cosine similarity is used as the similarity measure.
 
 
-### Running
-
-#### Pre-requisites
+### Pre-requisites
 
 * A recent version of Python 3.
 * A recent version of JDK (javap is used to generate JVM disassembly) - must be in the path.
 * scikit-learn: pip install scikit-learn
+* pytorch: pip install torch (not required for TF-IDF embeddings)
+
+### Running (n-subsequence embeddings)
+
+#### Embedding generation
+
+```console
+python compute_nsubseqs.py <folder containing class files> <subseq output path>
+cd word2vec
+python trainer.py <subseq output path> <vec output file path>
+```
+
+#### Similarity checking
+
+```console
+python compute_nsubseq_emb_similarity.py <folder containing class files> <vec file path>
+```
+
 
 #### IDF generation:
 
@@ -50,7 +66,31 @@ The folder containing class files is recursively searched for class files and th
 #### Similarity checking
 
 ```console
-python compute_similarity.py <folder containing class files> <IDF path>
+python compute_tf_idf_similarity.py <folder containing class files> <IDF path>
+```
+
+To run against the test files using the pretrained vectors from commons-lang library:
+```console
+cd test
+javac *.java
+cd ..
+python compute_nsubseq_emb_similarity test test/commons_lang_ngrams.vec
+```
+
+### Running (TF-IDF embeddings)
+
+#### IDF generation:
+
+```console
+python compute_idf.py <folder containing class files> <IDF output path>
+```
+
+The folder containing class files is recursively searched for class files and the IDF is computed by aggregating data from all methods in all the class files.
+
+#### Similarity checking
+
+```console
+python compute_tf_idfsimilarity.py <folder containing class files> <IDF path>
 ```
 
 The IDF path must point to a previously computed IDF file. All the class files are read and pair-wise similarity of all methods are printed.
@@ -60,7 +100,7 @@ To run against the test files:
 cd test
 javac *.java
 cd ..
-python compute_similarity test test/idf_commons_lang.json
+python compute_tf_idf_similarity test test/idf_commons_lang.json
 ```
 ### Pre-computed
 
