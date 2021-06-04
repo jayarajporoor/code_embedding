@@ -104,7 +104,8 @@ python compute_tf_idf_similarity test test/idf_commons_lang.json
 ```
 ### Pre-computed
 
-The file test/idf_commons_lang.json contains IDF computed from all the class files in the Apache Commons Lang library.
+* The file test/idf_commons_lang.json contains IDF computed from all the class files in the Apache Commons Lang library.
+* The file test/commons_lang_ngrams.vec contains unary and binary-subsequence embeddings trained from all the class files in Apache Commongs Lang library.
 
 ### Citing
 
