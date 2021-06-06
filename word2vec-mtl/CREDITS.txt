@@ -1,0 +1,1 @@
+Modified the original codebase from: https://github.com/Andras7/word2vec-pytorch
