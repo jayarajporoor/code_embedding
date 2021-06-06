@@ -42,8 +42,8 @@ def cfg_walk(cfg, paths, curr_path=None, curr_idx=0):
                 path = curr_path.copy()
                 cfg_walk(cfg, paths, path, next)
 
-def dict_featurize(mod, df):
-    MAX_PATHS = 1000
+def dict_featurize(mod):
+    MAX_PATHS = 10
     res = {}
     n_methods = 0
     for method, cfg in mod.items():
@@ -93,7 +93,7 @@ def build_nsubseqs(inpath, outpath):
                     #print(lines)
                     res = parse_jsonp(lines)
                     #print(json.dumps(res, indent=4))
-                    res, n_mod_methods = dict_featurize(res, None)
+                    res, n_mod_methods = dict_featurize(res)
                     for method, method_paths in res.items():
                         for path_features in method_paths:
                             features_line = " ".join(list(path_features.keys()))
@@ -101,6 +101,32 @@ def build_nsubseqs(inpath, outpath):
                     n_methods += n_mod_methods
                     print("processed", n_mod_methods, "methods")
     return n_methods
+
+def build_path_features(inpath):
+    dataset = {}
+    df = defaultdict(float)
+    n_methods = 0
+    for root, dirs, files in os.walk(inpath):
+        path = root.split(os.sep)
+        print((len(path) - 1) * '...', os.path.basename(root))
+        for file in files:
+            if file.endswith(".class"):
+                file_path = root + os.sep + file
+                print(len(path) * '...', file)
+                process = Popen(["javap", "-v", file_path], stdout=PIPE)
+                (output, err) = process.communicate()
+                exit_code = process.wait()
+                output = output.decode("latin1")
+                #print(output)
+                lines = output.split("\n")
+                #print(lines)
+                res = parse_jsonp(lines)
+                #print(json.dumps(res, indent=4))
+                res, n_mod_methods = dict_featurize(res)
+                dataset[file_path] = res
+                n_methods += n_mod_methods
+                print("processed", n_mod_methods, "methods")
+    return dataset, n_methods
 
 def compute_idf(df, n_methods):
     idf  = {}
