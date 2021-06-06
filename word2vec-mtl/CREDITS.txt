@@ -1,1 +1,2 @@
-Modified the original codebase from: https://github.com/Andras7/word2vec-pytorch
+Modified the original codebase from: https://github.com/Andras7/word2vec-pytorch to implement
+Multi-Task Learning (MTL).
