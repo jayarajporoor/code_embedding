@@ -10,6 +10,9 @@ import random
 from collections import defaultdict
 from sklearn.feature_extraction import DictVectorizer
 
+#Hyperparameter: Maximum number of paths explored via CFG random walk. Higher is better of course
+#Currently set to 10 owing to the compute limitations of my laptop :)
+MAX_PATHS = 10
 
 def inseq_to_feature_dict(lines):
     d = defaultdict(float)
@@ -43,7 +46,7 @@ def cfg_walk(cfg, paths, curr_path=None, curr_idx=0):
                 cfg_walk(cfg, paths, path, next)
 
 def dict_featurize(mod):
-    MAX_PATHS = 10
+    global MAX_PATHS
     res = {}
     n_methods = 0
     for method, cfg in mod.items():
