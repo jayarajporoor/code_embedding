@@ -59,12 +59,27 @@ During similarity checking, the TF vectors are generated and scaled using the pr
 
 ### Running (n-subsequence embeddings)
 
-#### Embedding generation
+#### Embedding generation (path insensitive)
 
 ```console
 python compute_nsubseqs.py <folder containing class files> <subseq output path>
 cd word2vec
 python trainer.py <subseq output path> <vec output file path>
+```
+
+#### Embedding generation (path sensitive)
+
+```console
+python cfg_embedding.py <folder containing class files> <subseq output path>
+cd word2vec
+python trainer.py <subseq output path> <vec output file path>
+```
+
+#### MTL Embedding generation
+
+```console
+cd word2vec-mtl
+python mtl-trainer.py <path insensitive subseq output path> <path sensitive subseq output path> <vec output file path>
 ```
 
 #### Similarity checking
